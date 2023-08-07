@@ -1,0 +1,17 @@
+**/node_modules/
+
+# Ignore environment variables file
+**/.env
+
+# Ignore .cache in all directories
+**/.cache
+
+# Ignore dist in all directories
+**/dist
+
+# Ignore build in all directories
+**/build
+
+# Ignore .next in all directories (for Next.js projects)
+**/.next
+
