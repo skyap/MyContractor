@@ -20,16 +20,25 @@ contract UserContract is Ownable {
     mapping(address => User) public users;
     uint public userCount;
 
-    function addUser(string memory _username) public {
-        require(users[msg.sender].userAddress == address(0), "User already exists");
-        users[msg.sender] = User(msg.sender, _username, 0, true);
+    function addUser(string memory _username, address _userAddress) public onlyOwner{
+        require(users[_userAddress].userAddress == address(0), "User already exists");
+        require(bytes(_username).length>0, "User name cannot be an empty string");
+        users[_userAddress] = User(msg.sender, _username, 0,0,0,0, true);
         userCount++;
     }
-
-    function updateUserRating(address _userAddress, uint _rating) public onlyOwner {
+    // if _type == True, set providersRating
+    // if _type == False, set clientsRating
+    function updateUserRating(address _userAddress, uint _rating, bool _type) public onlyOwner {
         require(users[_userAddress].userAddress != address(0), "User doesn't exist");
         require(_rating >= 1 && _rating <= 5, "Rating should be between 1 and 5");
-        users[_userAddress].rating = _rating;
+        if(_type){
+            users[_userAddress].totalProvidersRating += _rating;
+            users[_userAddress].providersRatingCount++;
+        } else {
+            users[_userAddress].totalClientsRating += _rating;
+            users[_userAddress].clientsRatingCount++;
+        }
+ 
     }
 
     function deactivateUser(address _userAddress) public onlyOwner {
@@ -55,6 +64,10 @@ contract UserContract is Ownable {
             return (integerPart,decimalPart);            
         }
         
+    }
+
+    function getUser(address _userAddress)public view returns(User memory){
+        return users[_userAddress];
     }
 
 }
