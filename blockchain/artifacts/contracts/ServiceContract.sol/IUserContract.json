@@ -9,6 +9,11 @@
           "internalType": "string",
           "name": "_username",
           "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
         }
       ],
       "name": "addUser",
@@ -56,49 +61,42 @@
       "name": "getUser",
       "outputs": [
         {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "userAddress",
-              "type": "address"
-            },
-            {
-              "internalType": "string",
-              "name": "username",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalProvidersRating",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "providersRatingCount",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalClientsRating",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "clientsRatingCount",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "isActive",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct IUserContract.User",
+          "internalType": "address",
           "name": "",
-          "type": "tuple"
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -112,6 +110,11 @@
           "internalType": "uint256",
           "name": "_rating",
           "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_type",
+          "type": "bool"
         }
       ],
       "name": "updateUserRating",

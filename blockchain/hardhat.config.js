@@ -14,4 +14,11 @@ task(TASK_COMPILE_SOLIDITY_GET_SOURCE_PATHS, async (taskArgs, hre, runSuper) => 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19",
+  networks:{
+    hardhat:{
+      accounts:{
+        count:20,
+      }
+    }
+  }
 };

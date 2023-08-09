@@ -65,9 +65,12 @@ contract UserContract is Ownable {
         }
         
     }
+    
 
-    function getUser(address _userAddress)public view returns(User memory){
-        return users[_userAddress];
+    function getUser(address _userAddress)public view returns(address,string memory,uint256,uint256,uint256,uint256,bool){
+        User memory user =  users[_userAddress];
+
+        return (user.userAddress,user.username,user.totalProvidersRating,user.providersRatingCount,user.totalClientsRating,user.clientsRatingCount,user.isActive);
     }
 
 }
