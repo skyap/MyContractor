@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain2/contracts/ServiceContract.sol": {
-      "lastModificationDate": 1690965873975,
-      "contentHash": "c02a6dad13bf689b50e6505dd370b594",
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/contracts/ServiceContract.sol": {
+      "lastModificationDate": 1691476248061,
+      "contentHash": "2597896c1d114ef08977792f3c85227e",
       "sourceName": "contracts/ServiceContract.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -30,19 +30,19 @@
       },
       "imports": [
         "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "./UserContract.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IUserContract",
         "ServiceContract"
       ]
     },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain2/contracts/UserContract.sol": {
-      "lastModificationDate": 1691023092290,
-      "contentHash": "a9b4916760d3b7df7213dc949baf2002",
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/contracts/UserContract.sol": {
+      "lastModificationDate": 1691422971167,
+      "contentHash": "07d59213c2a19625828517f4a03c219e",
       "sourceName": "contracts/UserContract.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -77,10 +77,10 @@
         "UserContract"
       ]
     },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain3/contracts/ServiceContract.sol": {
-      "lastModificationDate": 1691141027612,
-      "contentHash": "5196350dcdb3d5ef1ca09d5874a7bad8",
-      "sourceName": "contracts/ServiceContract.sol",
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1691395045159,
+      "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -104,20 +104,16 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IUserContract",
-        "ServiceContract"
+        "IERC20"
       ]
     },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain3/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1691111556495,
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1691395045191,
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -153,43 +149,8 @@
         "Ownable"
       ]
     },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain3/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1691111556459,
-      "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-      "solcConfig": {
-        "version": "0.8.19",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC20"
-      ]
-    },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain3/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1691111556375,
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1691395045067,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -223,10 +184,10 @@
         "Context"
       ]
     },
-    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain3/contracts/UserContract.sol": {
-      "lastModificationDate": 1691132636438,
-      "contentHash": "7b93b8e7cd62162bd35d29bd58d3d04c",
-      "sourceName": "contracts/UserContract.sol",
+    "/mnt/storage/20_projects/73_hackathon/mycontractor/blockchain4/contracts/examples.sol": {
+      "lastModificationDate": 1691395032550,
+      "contentHash": "23e02636483cfa655922eb983a1dfac6",
+      "sourceName": "contracts/examples.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -250,14 +211,10 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
+      "imports": [],
+      "versionPragmas": [],
       "artifacts": [
-        "UserContract"
+        "examples"
       ]
     }
   }

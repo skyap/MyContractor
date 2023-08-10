@@ -18,9 +18,9 @@ contract UserContract is Ownable {
     }
 
     mapping(address => User) public users;
-    uint public userCount;
+    uint256 public userCount;
 
-    function addUser(string memory _username, address _userAddress) public onlyOwner{
+    function addUser(address _userAddress, string memory _username) public onlyOwner{
         require(users[_userAddress].userAddress == address(0), "User already exists");
         require(bytes(_username).length>0, "User name cannot be an empty string");
         users[_userAddress] = User(msg.sender, _username, 0,0,0,0, true);
@@ -71,6 +71,10 @@ contract UserContract is Ownable {
         User memory user =  users[_userAddress];
 
         return (user.userAddress,user.username,user.totalProvidersRating,user.providersRatingCount,user.totalClientsRating,user.clientsRatingCount,user.isActive);
+    }
+
+    function setUserCount(uint256 _count)public onlyOwner{
+        userCount = _count;
     }
 
 }

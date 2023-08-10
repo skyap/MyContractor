@@ -4,92 +4,122 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./UserContract.sol";
 
 
-
-interface IUserContract{
-    struct User {
-        address userAddress;
-        string username;
-        uint256 totalProvidersRating; 
-        uint256 providersRatingCount;
-        uint256 totalClientsRating;
-        uint256 clientsRatingCount;
-        bool isActive;
-    }
-    function addUser(string memory _username,address _userAddress) external;
-    // if _type == True, set providersRating
-    // if _type == False, set clientsRating
-    function updateUserRating(address _userAddress, uint _rating,bool _type) external;
-    function getAverageRating(address _userAddress,bool _type) external view returns (uint256,uint256);
-    function getUser(address _userAddress)external returns(address,string memory,uint256,uint256,uint256,uint256,bool);
-}
+// interface IUserContract{
+//     struct User {
+//         address userAddress;
+//         string username;
+//         uint256 totalProvidersRating; 
+//         uint256 providersRatingCount;
+//         uint256 totalClientsRating;
+//         uint256 clientsRatingCount;
+//         bool isActive;
+//     }
+//     function addUser(string memory _username,address _userAddress) external;
+//     // if _type == True, set providersRating
+//     // if _type == False, set clientsRating
+//     function updateUserRating(address _userAddress, uint _rating,bool _type) external;
+//     function getAverageRating(address _userAddress,bool _type) external view returns (uint256,uint256);
+//     function getUser(address _userAddress)external returns(address,string memory,uint256,uint256,uint256,uint256,bool);
+// }
 
 
 
 contract ServiceContract is Ownable {
-    string[] public service_example = [
-    '"standard": "2", "subject": "bc", "teacher": "ms cholee", "day": "tue", "time": "8:30pm-9:30pm"',
-    '"standard": "2", "subject": "math", "teacher": "ms cholee", "day": "tue", "time": "7:30pm-8:30pm"',
-    '"standard": "2", "subject": "bm", "teacher": "mr lee", "day": "wed", "time": "7:30pm-8:30pm"',
-    '"standard": "2", "subject": "bi", "teacher": "mr lee", "day": "wed", "time": "8:30pm-9:30pm"',
-    '"standard": "2", "subject": "science", "teacher": "ms ruth", "day": "fri", "time": "7:30pm-8:30pm"',
-    '"standard": "3", "subject": "bm", "teacher": "ms cholee", "day": "thur", "time": "7:30pm-8:30pm"',
-    '"standard": "3", "subject": "bc", "teacher": "ms cholee", "day": "thur", "time": "8:30pm-9:30pm"',
-    '"standard": "3", "subject": "bi", "teacher": "mr nick", "day": "tue", "time": "8:30pm-9:30pm"',
-    '"standard": "3", "subject": "math", "teacher": "ms cholee", "day": "fri", "time": "7:30pm-8:30pm"',
-    '"standard": "3", "subject": "science", "teacher": "ms ruth", "day": "fri", "time": "8:30pm-9:30pm"',
-    '"standard": "4", "subject": "bc comp", "teacher": "ms tang", "day": "wed", "time": "4:00pm-5:30pm"',
-    '"standard": "4", "subject": "bc essay", "teacher": "ms tang", "day": "wed", "time": "5:30pm-7:00pm"',
-    '"standard": "4", "subject": "bm comp", "teacher": "ms tang", "day": "tue", "time": "4:00pm-5:30pm"',
-    '"standard": "4", "subject": "bm essay", "teacher": "ms tang", "day": "thur", "time": "4:00pm-5:30pm"',
-    '"standard": "4", "subject": "bi comp", "teacher": "mr nick", "day": "tue", "time": "5:30pm-7:00pm"',
-    '"standard": "4", "subject": "bi essay", "teacher": "ms chloee", "day": "fri", "time": "5:30pm-7:00pm"',
-    '"standard": "4", "subject": "math", "teacher": "mr yap", "day": "fri", "time": "4:00pm-5:30pm"',
-    '"standard": "4", "subject": "science", "teacher": "mr yap", "day": "mon", "time": "4:00pm-5:30pm"',
-    '"standard": "6", "subject": "bc comp", "teacher": "mr lim", "day": "tue", "time": "7:00pm-8:30pm"',
-    '"standard": "6", "subject": "bc essay", "teacher": "mr lim", "day": "thur", "time": "7:00pm-8:30pm"',
-    '"standard": "6", "subject": "bm comp", "teacher": "mr nick", "day": "thur", "time": "5:30pm-7:00pm"',
-    '"standard": "6", "subject": "bm essay", "teacher": "mr nick", "day": "fri", "time": "5:30pm-7:00pm"',
-    '"standard": "6", "subject": "bi comp", "teacher": "mr nick", "day": "mon", "time": "5:30pm-7:00pm"',
-    '"standard": "6", "subject": "bi essay", "teacher": "mr nick", "day": "fri", "time": "7:00pm-8:30pm"',
-    '"standard": "6", "subject": "math", "teacher": "mr ng", "day": "wed", "time": "4:00pm-5:30pm"',
-    '"standard": "6", "subject": "science", "teacher": "mr lim", "day": "wed", "time": "5:30pm-7:00pm"'
-    ];
 
-
-    IUserContract.User[] public user_example = [
-        IUserContract.User(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,"ms chloee",0,0,0,0,true),
-        IUserContract.User(0xdD2FD4581271e230360230F9337D5c0430Bf44C0,"mr lee",0,0,0,0,true),
-        IUserContract.User(0xbDA5747bFD65F08deb54cb465eB87D40e51B197E,"ms ruth",0,0,0,0,true),
-        IUserContract.User(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,"mr nick",0,0,0,0,true),
-        IUserContract.User(0xcd3B766CCDd6AE721141F452C550Ca635964ce71,"mr yap",0,0,0,0,true),
-        IUserContract.User(0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097,"mr lim",0,0,0,0,true),
-        IUserContract.User(0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec,"mr ng",0,0,0,0,true),
-
-    ];
 
     // enum ServiceStatus { Created, InProgress, Completed, Disputed }
-
+    UserContract public userContract;
     enum ServiceStatus {InProgress,Completed}
     
+    constructor(){
+        userContract = new UserContract();
+        // provider 
+        userContract.addUser(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,"ms chloee");
+        userContract.addUser(0xdD2FD4581271e230360230F9337D5c0430Bf44C0,"mr lee");
+        userContract.addUser(0xbDA5747bFD65F08deb54cb465eB87D40e51B197E,"ms ruth");
+        userContract.addUser(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,"mr nick");
+        userContract.addUser(0xcd3B766CCDd6AE721141F452C550Ca635964ce71,"mr yap");
+        userContract.addUser(0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097,"mr lim");
+        userContract.addUser(0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec,"mr ng");
 
+        // client
+
+        userContract.addUser(0xFABB0ac9d68B0B445fB7357272Ff202C5651694a,"Aria");
+        userContract.addUser(0x71bE63f3384f5fb98995898A86B02Fb2426c5788,"Hiroshi");
+        userContract.addUser(0xBcd4042DE499D14e55001CcbB24a551F3b954096,"Sophia");
+        userContract.addUser(0xa0Ee7A142d267C1f36714E4a8F75612F20a79720,"Jia");
+        userContract.addUser(0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f,"Luca");
+        userContract.addUser(0x14dC79964da2C08b23698B3D3cc7Ca32193d9955,"Ananya");
+        userContract.addUser(0x976EA74026E726554dB657fA54763abd0C3a0aa9,"Emilie");
+        userContract.addUser(0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc,"Min-jun ");
+        userContract.addUser(0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65,"Isabella");
+        userContract.addUser(0x90F79bf6EB2c4f870365E785982E1f101E93b906,"Haruki");
+
+        userContract.setUserCount(17);
+
+        // Listings
+
+        listings[0] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,2,"bc","ms cholee","tue","8:30pm-9:30pm",121069 gwei,30 days);
+        listings[1] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,2,"math","ms cholee","tue","7:30pm-8:30pm",121069 gwei,30 days);
+        listings[2] = Listing(0xdD2FD4581271e230360230F9337D5c0430Bf44C0,2,"bm","mr lee","wed","7:30pm-8:30pm",121069 gwei,30 days);
+        listings[3] = Listing(0xdD2FD4581271e230360230F9337D5c0430Bf44C0,2,"bi","mr lee","wed","8:30pm-9:30pm",121069 gwei,30 days);
+        listings[4] = Listing(0xbDA5747bFD65F08deb54cb465eB87D40e51B197E,2,"science","ms ruth","fri","7:30pm-8:30pm",121069 gwei,30 days);
+        listings[5] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,3,"bm","ms cholee","thur","7:30pm-8:30pm",121069 gwei,30 days);
+        listings[6] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,3,"bc","ms cholee","thur","8:30pm-9:30pm",121069 gwei,30 days);
+        listings[7] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,3,"bi","mr nick","tue","8:30pm-9:30pm",121069 gwei,30 days);
+        listings[8] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,3,"math","ms cholee","fri","7:30pm-8:30pm",121069 gwei,30 days);
+        listings[9] = Listing(0xbDA5747bFD65F08deb54cb465eB87D40e51B197E,3,"science","ms ruth","fri","8:30pm-9:30pm",121069 gwei,30 days);
+        listings[10] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,4,"bc comp","ms tang","wed","4:00pm-5:30pm",121069 gwei,30 days);
+
+
+
+        listings[11] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,4,"bc essay","ms tang","wed","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[12] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,4,"bm comp","ms tang","tue","4:00pm-5:30pm",10290875 gwei,30 days);
+        listings[13] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,4,"bm essay","ms tang","thur","4:00pm-5:30pm",10290875 gwei,30 days);
+        listings[14] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,4,"bi comp","mr nick","tue","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[15] = Listing(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199,4,"bi essay","ms cholee","fri","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[16] = Listing(0xcd3B766CCDd6AE721141F452C550Ca635964ce71,4,"math","mr yap","fri","4:00pm-5:30pm",10290875 gwei,30 days);
+        listings[17] = Listing(0xcd3B766CCDd6AE721141F452C550Ca635964ce71,4,"science","mr yap","mon","4:00pm-5:30pm",10290875 gwei,30 days);
+
+
+
+        listings[18] = Listing(0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097,6,"bc comp","mr lim","tue","7:00pm-8:30pm",10290875 gwei,30 days);
+        listings[19] = Listing(0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097,6,"bc essay","mr lim","thur","7:00pm-8:30pm",10290875 gwei,30 days);
+        listings[20] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,6,"bm comp","mr nick","thur","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[21] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,6,"bm essay","mr nick","fri","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[22] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,6,"bi comp","mr nick","mon","5:30pm-7:00pm",10290875 gwei,30 days);
+        listings[23] = Listing(0x2546BcD3c84621e976D8185a91A922aE77ECEc30,6,"bi essay","mr nick","fri","7:00pm-8:30pm",10290875 gwei,30 days);
+        listings[24] = Listing(0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec,6,"math","mr ng","wed","4:00pm-5:30pm",10290875 gwei,30 days);
+        listings[25] = Listing(0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097,6,"science","mr lim","wed","5:30pm-7:00pm",10290875 gwei,30 days);
+
+
+
+
+
+        listingCount = 26;
+
+
+    }
     struct Listing{
-        address payable provider;
-        string standard;
+        address provider;
+        uint256 standard;
+        string subject;
         string teacher;
-        uint256 day;
-        uint256 time;
+        string day;
+        string time;
         uint256 cost;
         uint256 duration;
     }
 
     struct Service {
         uint256 listingId;
-        address payable client;
+        address client;
         Listing listing;
         ServiceStatus status;
-        uint256 deadline;
+        uint256 startTime;
     }
 
     // Available services
@@ -101,24 +131,20 @@ contract ServiceContract is Ownable {
     uint256 public serviceCount;
 
 
-    constructor(address _userContract){
-        userContract = IUserContract(_userContract);
-
-    }
 
     function registerUser(string memory _username) public {
-        userContract.addUser(_username,msg.sender);
+        userContract.addUser(msg.sender,_username);
     }
     // create service to be published for user to select
-    function createService(string memory _serviceType,uint256 _cost,uint256 duration)public{
-        (,string memory _username,,,,,) = userContract.getUser(msg.sender);
-        require(bytes(_username).length>0, "User is not registered");
-        require(_cost>0,"Cost must be greater than 0");
-        listings[listingCount] = Listing(payable(msg.sender),_serviceType,_cost, duration);
+    function createService(uint256 standard,string memory subject,string memory day,string memory time,uint256 cost,uint256 duration)public{
+        (,string memory teacher,,,,,) = userContract.getUser(msg.sender);
+        require(bytes(teacher).length>0, "User is not registered");
+        require(cost>0,"Cost must be greater than 0");
+        listings[listingCount] = Listing(msg.sender,standard,subject,teacher,day,time,cost,duration);
         listingCount++;
     }
     // user purchase the services
-    function startService(uint256 _listingId, uint256 _deadline) public payable {
+    function startService(uint256 _listingId) public payable {
         // service exist
         Listing memory listing = listings[_listingId];
         require(listing.cost>0,"Listing is not existed");
@@ -126,20 +152,16 @@ contract ServiceContract is Ownable {
         // cost same as payable
         require(listing.cost == msg.value,"Value is not same as cost");
 
-        // _deadline must be equal or longer than duration
-        require(listing.duration<=_deadline,"Deadline is not longer than duration");
-
         // client exist
         (,string memory _username,,,,,) = userContract.getUser(msg.sender);
         require(bytes(_username).length>0, "User is not registered");
 
         Service memory newService;
-        newService.provider = listing.provider;
-        newService.client = payable(msg.sender);
-        newService.serviceType = listing.serviceType;
-        newService.cost = listing.cost;
+        newService.listingId = _listingId;
+        newService.client = msg.sender;
+        newService.listing = listing;
         newService.status = ServiceStatus.InProgress;
-        newService.deadline = block.timestamp + _deadline;
+        newService.startTime = block.timestamp;
 
         services[serviceCount] = newService;
 
@@ -147,38 +169,31 @@ contract ServiceContract is Ownable {
         serviceCount++;
     }
 
-    // client to completeService 
-    function completeService(uint256 _serviceId,uint256 _rating) public {
-        Service storage service = services[_serviceId];
-        require(service.client == msg.sender, "Not authorized");
-        require(service.status == ServiceStatus.InProgress, "Invalid status");
-        service.status = ServiceStatus.Completed;
-        userContract.updateUserRating(service.provider, _rating, true);
-    }
-
     // provider to confirmService and claim the prices after it is Completed or after duration
     function confirmService(uint256 _serviceId, uint256 _rating) public {
         Service storage service = services[_serviceId];
-        require(service.provider == msg.sender, "Not authorized");
-        require(service.status == ServiceStatus.Completed || service.deadline>=block.timestamp, "Invalid status/deadline");
+        require(service.listing.provider == msg.sender, "Not authorized");
+        require(service.status == ServiceStatus.Completed || service.startTime+service.listing.duration>=block.timestamp, "Invalid status/deadline");
 
         // token.transfer(service.provider, service.cost);
         service.status = ServiceStatus.Completed;
         uint256 _claim = claim[msg.sender];
-        claim[msg.sender] = 0;
+        delete claim[msg.sender];
         userContract.updateUserRating(service.client, _rating, false);
-        payable(msg.sender).transfer(_claim);
+        (bool send,) = payable(msg.sender).call{value:_claim}("");
+        require(send, "Failed to claim ether");
     }
 
 
-    function getService(uint256 _serviceId) external view returns (address,address,string memory,uint256,ServiceStatus,uint256) { 
+
+    function getService(uint256 _serviceId) external view returns (uint256,address,address,uint256,string memory,string memory,string memory,string memory,uint256,uint256,ServiceStatus,uint256) { 
         Service memory service =  services[_serviceId];
-        return (service.provider,service.client,service.serviceType,service.cost,service.status,service.deadline);
+        return(service.listingId,service.client,service.listing.provider,service.listing.standard,service.listing.subject,service.listing.teacher,service.listing.day,service.listing.time,service.listing.cost,service.listing.duration,service.status,service.startTime);
     }
 
-    function getListing(uint256 _listingId) external view returns (address,string memory,uint256,uint256) { 
+    function getListing(uint256 _listingId) external view returns (address,uint256,string memory,string memory,string memory,string memory,uint256,uint256) { 
         Listing memory listing =  listings[_listingId];
-        return (listing.provider,listing.serviceType,listing.cost,listing.duration);
+        return (listing.provider,listing.standard,listing.subject,listing.teacher,listing.day,listing.time,listing.cost,listing.duration);
 
     }
 
@@ -189,7 +204,7 @@ contract ServiceContract is Ownable {
     }
 
 
-    function getUser(address _userAddress)external returns (address,string memory,uint256,uint256,uint256,uint256,bool){
+    function getUser(address _userAddress)external view returns (address,string memory,uint256,uint256,uint256,uint256,bool){
         return userContract.getUser(_userAddress);
     }
 

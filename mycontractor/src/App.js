@@ -17,14 +17,17 @@ import MetaMaskButton from "./pages/MetaMaskButton";
 const serviceContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 function App() {
   const [account, setAccount] = useState(null);
-  const [services,setServices] = useState([]);
+  const [web3,setWeb3] = useState(null);
+  const [serviceContract,setServiceContract] = useState(null);
   const [items,setItems] = useState([]);
 
   useEffect(()=>{
     async function fetchAllServices(){
       const web3 = new Web3("http://127.0.0.1:8545");
+      setWeb3(web3);
       const serviceContract = new web3.eth.Contract(serviceContractJSON.abi,serviceContractAddress);
       let listingCount = await serviceContract.methods.listingCount().call();
+      setServiceContract(serviceContract)
       listingCount = Number(listingCount);
       let items=[];
       for(let i=0;i<listingCount;i++){
@@ -36,7 +39,7 @@ function App() {
         item['teacher']=temp[3];
         item['day']=temp[4];
         item['time']=temp[5];
-        item['cost']=temp[6];
+        item['cost']=web3.utils.fromWei(temp[6].toString(),'ether');
         item['duration']=temp[7];
         items.push(item);
       }
@@ -63,7 +66,7 @@ function App() {
         <Routes>
 
           <Route path="/classes" element={<Classes />} />
-          <Route path="/tuition/:id" element={<Tuition account={account} setAccount={setAccount} data={[]} />}/>
+          <Route path="/tuition/:id" element={<Tuition account={account} serviceContract={serviceContract} web3={web3} items={items} />}/>
           <Route path="*" element={<Home items={items}/>} />
         </Routes>
       </Router>

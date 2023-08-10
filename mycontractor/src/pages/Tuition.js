@@ -1,7 +1,19 @@
 import React from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
-const Tuition = () => {
+const Tuition = (props) => {
+    const { id } = useParams();
+    const item = props.items[id];
+    const purchaseTuition = async()=>{
+        const serviceContract = props.serviceContract;
+        const account = props.account;
+        const web3 = props.web3;
+        console.log("account",account,id);
+        const cost = web3.utils.toWei(item.cost,'ether');
+        await serviceContract.methods.startService(id).send({from:account,value:cost})
+
+    };
     return (
         <div className="container mt-5">
             <Card className="text-center" style={{ border: "none" }}>
@@ -9,16 +21,16 @@ const Tuition = () => {
                 <Card.Body>
                     <Card.Title className="font-weight-bold text-primary">Tuition Details</Card.Title>
                     <ListGroup variant="flush">
-                        <ListGroup.Item><strong>Teacher:</strong> John Doe</ListGroup.Item>
-                        <ListGroup.Item><strong>Cost:</strong> $500/month</ListGroup.Item>
-                        <ListGroup.Item><strong>Time:</strong> 5:00 PM - 7:00 PM</ListGroup.Item>
-                        <ListGroup.Item><strong>Day:</strong> Monday, Wednesday, Friday</ListGroup.Item>
-                        <ListGroup.Item><strong>Standard:</strong> 10th Grade</ListGroup.Item>
-                        <ListGroup.Item><strong>Subject:</strong> Mathematics</ListGroup.Item>
+                        <ListGroup.Item><strong>Teacher:</strong> {item.teacher}</ListGroup.Item>
+                        <ListGroup.Item><strong>Cost:</strong> {item.cost}/month</ListGroup.Item>
+                        <ListGroup.Item><strong>Time:</strong> {item.time}</ListGroup.Item>
+                        <ListGroup.Item><strong>Day:</strong> {item.day}</ListGroup.Item>
+                        <ListGroup.Item><strong>Standard:</strong> {item.standard} </ListGroup.Item>
+                        <ListGroup.Item><strong>Subject:</strong> {item.subject}</ListGroup.Item>
                     </ListGroup>
                 </Card.Body>
                 <Card.Footer className="bg-transparent border-top-0">
-                    <Button variant="primary" size="lg">Buy</Button>
+                    {props.account!==item.provider?<Button variant="primary" size="lg" onClick={()=>purchaseTuition(id)}>Purchase</Button>:<Button variant="primary" size="lg" disabled>Purchase</Button>}
                 </Card.Footer>
             </Card>
         </div>

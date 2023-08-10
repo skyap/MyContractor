@@ -1,0 +1,26 @@
+await b.listingCount()
+await b.listingCount
+Number("123")
+Number("1n")
+Number(1n)
+await b.getListing(3)
+let b = a.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+const a = await ethers.getContractFactory("ServiceContract");
+await c.getListing(3)
+await c.getListing(2)
+await c.getListing(1)
+c = a.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+b = a.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+const b = a.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+const b = a.attach(0x5FbDB2315678afecb367f032d93F642f64180aa3);
+const a = await ethers.getContractFactory("ServiceContract");
+const { ethers } = require("hardhat");
+a.attach(0x3aa5ebb10dc797cac828524e59a333d0a371443c);
+a.attach()
+a.attach
+const b = a.attach(0xc6e7df5e7b4f2a278906862b61205850344d4e7d);
+const a = await ethers.getContractFactory("ServiceContract");
+b = a.attach(target=0xc6e7df5e7b4f2a278906862b61205850344d4e7d);
+const b = a.attach(target=0xc6e7df5e7b4f2a278906862b61205850344d4e7d);
+const b = a.attach(0xc6e7df5e7b4f2a278906862b61205850344d4e7d);
+const a = await ethers.getContractFactory("ServiceContract");
