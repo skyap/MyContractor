@@ -42,7 +42,7 @@ function MetaMaskButton({account, setAccount}) {
     return (
         <div>
             {account ? (
-                <Button variant="outline-success">
+                <Button variant="outline-success" >
                     {account.substring(0,6) + '...' + account.substring(account.length-4,account.length)}
                 </Button>
             ) : (

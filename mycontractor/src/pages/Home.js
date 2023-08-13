@@ -10,7 +10,7 @@ const Home = ({items}) => {
                 <Row>
                     {items?items.map((data, index) => (
                         <Col md={3} key={index}>
-                            <Card style={{ marginBottom: '20px' }}>
+                            <Card class="card text-white bg-info mb-3" style={{  marginBottom: '20px' }}>
                                 {/* <Card.Img variant="top" src={uri} /> Assuming URI is a direct link to the image */}
                                 <Card.Body>
                                     <Card.Title>Class #{index + 1}</Card.Title>
